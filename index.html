@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tugas Pintar — aplikasi to-do list ringkas dan cantik." />
+  <title>Tugas Pintar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="app-card" aria-label="Aplikasi Tugas Pintar">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">PRODUKTIVITI HARIAN</p>
+          <h1>Tugas Pintar</h1>
+          <p class="subtitle">Susun tugas, fokus pada perkara yang penting.</p>
+        </div>
+        <div class="date-pill" id="today"></div>
+      </header>
+
+      <form id="taskForm" class="task-form">
+        <input id="taskInput" type="text" maxlength="120" placeholder="Apa yang perlu dibuat?" autocomplete="off" required />
+        <button type="submit">+ Tambah</button>
+      </form>
+
+      <section class="toolbar">
+        <div class="filters" role="group" aria-label="Penapis tugas">
+          <button class="filter active" data-filter="all" type="button">Semua</button>
+          <button class="filter" data-filter="active" type="button">Belum siap</button>
+          <button class="filter" data-filter="completed" type="button">Siap</button>
+        </div>
+        <button id="clearCompleted" class="text-button" type="button">Padam yang siap</button>
+      </section>
+
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="progressText">0 daripada 0 selesai</span><span id="progressPercent">0%</span></div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      </div>
+
+      <ul id="taskList" class="task-list" aria-live="polite"></ul>
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">✓</div>
+        <h2>Tiada tugas lagi</h2>
+        <p>Tambah tugas pertama anda di atas.</p>
+      </div>
+    </section>
+    <footer>Data disimpan secara automatik dalam pelayar anda.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
