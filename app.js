@@ -1,0 +1,11 @@
+const STORAGE_KEY = 'tugas-pintar-tasks-v1';
+let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let filter = 'all';
+const form = document.querySelector('#taskForm'), input = document.querySelector('#taskInput'), list = document.querySelector('#taskList'), empty = document.querySelector('#emptyState');
+const progressText = document.querySelector('#progressText'), progressPercent = document.querySelector('#progressPercent'), progressBar = document.querySelector('#progressBar');
+today.textContent = new Intl.DateTimeFormat('ms-MY',{day:'numeric',month:'short',year:'numeric'}).format(new Date());
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));}
+function render(){list.innerHTML='';const shown=tasks.filter(t=>filter==='all'||(filter==='active'?!t.done:t.done));empty.classList.toggle('hidden',shown.length!==0);shown.forEach(t=>{const li=document.createElement('li');li.className='task'+(t.done?' completed':'');li.innerHTML='<button class="check" aria-label="Tanda tugas"></button><span class="task-text"></span><button class="delete" aria-label="Padam tugas">×</button>';li.querySelector('.task-text').textContent=t.text;li.querySelector('.check').onclick=()=>{t.done=!t.done;save();render()};li.querySelector('.delete').onclick=()=>{tasks=tasks.filter(x=>x.id!==t.id);save();render()};list.appendChild(li)});const done=tasks.filter(t=>t.done).length,pct=tasks.length?Math.round(done/tasks.length*100):0;progressText.textContent=`${done} daripada ${tasks.length} selesai`;progressPercent.textContent=`${pct}%`;progressBar.style.width=`${pct}%`}
+form.addEventListener('submit',e=>{e.preventDefault();const text=input.value.trim();if(!text)return;tasks.unshift({id:Date.now(),text,done:false});save();render();input.value='';input.focus()});
+document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));render()}));
+document.querySelector('#clearCompleted').onclick=()=>{tasks=tasks.filter(t=>!t.done);save();render()};render();
