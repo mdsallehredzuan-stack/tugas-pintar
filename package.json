@@ -1,0 +1,6 @@
+{
+  "name": "tugas-pintar",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {"dev": "python -m http.server 3000", "start": "python -m http.server 3000"}
+}
